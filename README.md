@@ -1,4 +1,5 @@
-![OpenWrt logo](include/logo.png)
+![OpenWrt logo](include/logo.png) ![2560px-TPLINK_Logo_2 svg](https://user-images.githubusercontent.com/2247180/147079098-268bb575-6389-4832-82fc-318684879cf4.png)
+
 
 OpenWrt Project is a Linux operating system targeting embedded devices. Instead
 of trying to create a single, static firmware, OpenWrt provides a fully
@@ -88,3 +89,4 @@ For a list of supported devices see the [OpenWrt Hardware Database](https://open
 ## License
 
 OpenWrt is licensed under GPL-2.0
+![2560px-TPLINK_Logo_2 svg](https://user-images.githubusercontent.com/2247180/147079098-268bb575-6389-4832-82fc-318684879cf4.png)
