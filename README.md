@@ -49,7 +49,7 @@ unzip wget gettext xsltproc zlib1g-dev
 > Note: `I may have duplicated packaes by mistake. They Simply wont install again.''
 
 ```sh
-sudo apt -y install libboost-dev libxml-parser-perl libusb-dev bin86 bcc
+sudo apt -y install libboost-dev libxml-parser-perl libusb-dev bin86 bcc \
 sharutils gcc-multilib openjdk-8-jdk
 ```
 
