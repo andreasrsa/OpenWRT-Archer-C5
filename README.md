@@ -1,92 +1,101 @@
-![OpenWrt logo](include/logo.png) ![2560px-TPLINK_Logo_2 svg](https://user-images.githubusercontent.com/2247180/147079098-268bb575-6389-4832-82fc-318684879cf4.png)
+![OpenWrt logo](include/logo.png) 
+
+openwrt-archerc5
+================
+
+>Note: `This is a development fork of OpenWRT. Resolving a specific SoC Router. Uf you're ere for that, I wish you the best. I take no responsibilty if you mess up. I will uplaod completed firmware releases shortly as well as video.
+
+A Fork of OpenWRT with TP-Link Archer C5v4 Support
+
+Credit and Respect to Serge Vasilugin who created the patch that made
+this possible. His GitHub: https://github.com/ggbruno
+
+Due to the Realtek RTL8367S SoC, OpenWRT has deemed this router
+unsupported. If you follow the instructions, you will be able to install
+custom firmware up to current Version 21.02.
+
+For the environment I use. Prerequisites:
+
+OS: GNU/Linux and Unix like distribution. I used Ubuntu Server 20.04
+under a VM environment.
+
+THIS PART PEOPLE JUST DONT SEEM TO GET:
+
+1.  An account that is NON-Root. I.E. A standard account.
+2.  The following packages:
 
 
-OpenWrt Project is a Linux operating system targeting embedded devices. Instead
-of trying to create a single, static firmware, OpenWrt provides a fully
-writable filesystem with package management. This frees you from the
-application selection and configuration provided by the vendor and allows you
-to customize the device through the use of packages to suit any application.
-For developers, OpenWrt is the framework to build an application without having
-to build a complete firmware around it; for users this means the ability for
-full customization, to use the device in ways never envisioned.
-
-Sunshine!
-
-## Development
-
-To build your own firmware you need a GNU/Linux, BSD or MacOSX system (case
-sensitive filesystem required). Cygwin is unsupported because of the lack of a
-case sensitive file system.
-
-### Requirements
-
-You need the following tools to compile OpenWrt, the package names vary between
-distributions. A complete list with distribution specific packages is found in
-the [Build System Setup](https://openwrt.org/docs/guide-developer/build-system/install-buildsystem)
-documentation.
-
+```sh
+sudo apt update sudo apt install -y build-essential ccache ecj fastjar \
+file g++ gawk gettext git java-propose-classpath libelf-dev libncurses5-dev \
+libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+python3-distutils python3-setuptools python3-dev rsync subversion \
+swig time xsltproc zlib1g-dev
 ```
-binutils bzip2 diff find flex gawk gcc-6+ getopt grep install libc-dev libz-dev
-make4.1+ perl python3.6+ rsync subversion unzip which
+
+The above is what OpenWRT recommned. Its the base build tools. But YOU DO NEED the rest. So Step but step. 
+```sh
+sudo apt -y install subversion mercurial
 ```
 
-### Quickstart
 
-1. Run `./scripts/feeds update -a` to obtain all the latest package definitions
-   defined in feeds.conf / feeds.conf.default
+```sh
+sudo apt -y install asciidoc bash binutils bzip2 flex git-core g++ gcc \
+util-linux  gawk help2man intltool libelf-dev zlib1g-dev make \
+libncurses5-dev libssl-dev patch perl-modules python2-dev python3-dev \
+unzip wget gettext xsltproc zlib1g-dev
+```
 
-2. Run `./scripts/feeds install -a` to install symlinks for all obtained
-   packages into package/feeds/
+> Note: `I may have duplicated packaes by mistake. They Simply wont install again.''
 
-3. Run `make menuconfig` to select your preferred configuration for the
-   toolchain, target system & firmware packages.
+```sh
+sudo apt -y install libboost-dev libxml-parser-perl libusb-dev bin86 bcc
+sharutils gcc-multilib openjdk-8-jdk
+```
 
-4. Run `make` to build your firmware. This will download all sources, build the
-   cross-compile toolchain and then cross-compile the GNU/Linux kernel & all chosen
-   applications for your target system.
+> Note: `openjdk-7-jdk is no longer available on Ubuntu 20.04. The release
+is as per above.'' 
 
-### Related Repositories
+3.  You need to go to /home and type sudo mkdir \~/openwrt (OpenWRT
+    support calls this the root folder. A kinda conflicts with the fact
+    that all compiling must NOT be root)
+4.  fomr home type ls -sl. The folder is root:root permission now. You
+    need to type: sudo chown {non-sudo user}:{non-sudo group}
+5.  Now enter \~/openwrt as your non-sudo user. From this point,
+    everything must be done as a non-sudo
+6.  type git clone https://github.com/openwrt/openwrt.git
+7.  Once cloned, Select Master by typing: git branch -a; then git switch
+    master
+8.  You can type git pull to see if any new patches or updates have
+    changed
+9.  Now you should be in v21.02
+10. ./scripts/feeds update -a
+11. ./scripts/feeds install -a
+12. wget
+    https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/4327.patch
+    (This is the realtek patch that will add the Archer c5v4 in
+    menuconfig)
+13. git apply 4327.patch (if you have no errors or issues here, you
+    should be smooth sailing)
+14. make defconfig
+15. make menuconfig Inside the menuconfig: set Target System: MediaTek
+    Ralink MIPS set Subtarget: MT7620.. set Target Profile: TP-Link
+    Archer C5 v4
 
-The main repository uses multiple sub-repositories to manage packages of
-different categories. All packages are installed via the OpenWrt package
-manager called `opkg`. If you're looking to develop the web interface or port
-packages to OpenWrt, please find the fitting repository below.
+There's a lot of customising here. I would suggest starting with just
+the above, and if you prefer WebUI, add Luci.
 
-* [LuCI Web Interface](https://github.com/openwrt/luci): Modern and modular
-  interface to control the device via a web browser.
+16. Save
+17. make -j{see notes} download (-j4 is 4 cores; if you have issues try
+    make -j2 or make -j1 - the download parameter will speed up
+    compiling)
+18. make -j4 V=s (This is 4 core CPU with verbose so you can see the
+    compilation)
 
-* [OpenWrt Packages](https://github.com/openwrt/packages): Community repository
-  of ported packages.
+Now sit back, have a few cups of coffee. The compilation takes a while,
+and uses about 20-30 gig.
 
-* [OpenWrt Routing](https://github.com/openwrt/routing): Packages specifically
-  focused on (mesh) routing.
+Good luck!
 
-* [OpenWrt Video](https://github.com/openwrt/video): Packages specifically
-  focused on display servers and clients (Xorg and Wayland).
 
-## Support Information
-
-For a list of supported devices see the [OpenWrt Hardware Database](https://openwrt.org/supported_devices)
-
-### Documentation
-
-* [Quick Start Guide](https://openwrt.org/docs/guide-quick-start/start)
-* [User Guide](https://openwrt.org/docs/guide-user/start)
-* [Developer Documentation](https://openwrt.org/docs/guide-developer/start)
-* [Technical Reference](https://openwrt.org/docs/techref/start)
-
-### Support Community
-
-* [Forum](https://forum.openwrt.org): For usage, projects, discussions and hardware advise.
-* [Support Chat](https://webchat.oftc.net/#openwrt): Channel `#openwrt` on **oftc.net**.
-
-### Developer Community
-
-* [Bug Reports](https://bugs.openwrt.org): Report bugs in OpenWrt
-* [Dev Mailing List](https://lists.openwrt.org/mailman/listinfo/openwrt-devel): Send patches
-* [Dev Chat](https://webchat.oftc.net/#openwrt-devel): Channel `#openwrt-devel` on **oftc.net**.
-
-## License
-
-OpenWrt is licensed under GPL-2.0
 ![2560px-TPLINK_Logo_2 svg](https://user-images.githubusercontent.com/2247180/147079098-268bb575-6389-4832-82fc-318684879cf4.png)
