@@ -3,7 +3,7 @@
 openwrt-archerc5
 ================
 
->Note: `This is a development fork of OpenWRT. Resolving a specific SoC Router. Uf you're ere for that, I wish you the best. I take no responsibilty if you mess up. I will uplaod completed firmware releases shortly as well as video.
+>Note: `This is a development fork of OpenWRT. Resolving a specific SoC Router. If you're here for that, I wish you the best, TP Link's Archer c5 is a nice, cost effective router to R&D withoir breaking the bamk. But, I take no responsibilty if you mess up. I will uplaod completed firmware releases shortly as well as video.
 
 A Fork of OpenWRT with TP-Link Archer C5v4 Support
 
