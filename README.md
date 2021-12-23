@@ -60,7 +60,7 @@ is as per above.''
 3.  You need to go to /home and type sudo mkdir \~/openwrt (OpenWRT
     support calls this the root folder. A kinda conflicts with the fact
     that all compiling must NOT be root)
-4.  fomr home type ls -sl. The folder is root:root permission now. You
+4.  From home type ls -sl. The folder is root:root permission now. You
     need to type: sudo chown {non-sudo user}:{non-sudo group}
 5.  Now enter \~/openwrt as your non-sudo user. From this point,
     everything must be done as a non-sudo
