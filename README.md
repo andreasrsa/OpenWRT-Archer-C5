@@ -57,7 +57,7 @@ sharutils gcc-multilib openjdk-8-jdk
 > Note: `openjdk-7-jdk is no longer available on Ubuntu 20.04. The release
 is as per above.'' 
 
-3.  You need to go to /home or simply type cd ~/ and then type mkdir ~/openwrt. You have easentialky
+3.  You need to go to /home or simply type cd ~/ and then type mkdir ~/openwrt. You have essentially
     created your "build root". In GNU linux this is a best practice environment. GNU Linux being unique 
     in that it is THE platform dor cross compiling.
 4.  From home type ls -sl. The folder should reflext your userame. e.g. dev:dev. From within your
