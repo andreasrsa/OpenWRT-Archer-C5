@@ -57,11 +57,11 @@ sharutils gcc-multilib openjdk-8-jdk
 > Note: `openjdk-7-jdk is no longer available on Ubuntu 20.04. The release
 is as per above.'' 
 
-3.  You need to go to /home and type sudo mkdir \~/openwrt (OpenWRT
-    support calls this the root folder. A kinda conflicts with the fact
-    that all compiling must NOT be root)
-4.  From home type ls -sl. The folder is root:root permission now. You
-    need to type: sudo chown {non-sudo user}:{non-sudo group}
+3.  You need to go to /home or simply type cd ~/ and then type mkdir ~/openwrt. You have easentialky
+    created your "build root". In GNU linux this is a best practice environment. GNU Linux being unique 
+    in that it is THE platform dor cross compiling.
+4.  From home type ls -sl. The folder should reflext your userame. e.g. dev:dev. From within your
+    "build root" you now do everything without sudo.  
 5.  Now enter \~/openwrt as your non-sudo user. From this point,
     everything must be done as a non-sudo
 6.  type git clone https://github.com/openwrt/openwrt.git
